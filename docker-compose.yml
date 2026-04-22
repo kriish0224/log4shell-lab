@@ -1,0 +1,43 @@
+services:
+  loki:
+    image: grafana/loki:latest
+    networks:
+      lab-net:
+        ipv4_address: 10.10.10.10
+    ports:
+      - "3100:3100"
+
+  promtail:
+    image: grafana/promtail:latest
+    networks:
+      - lab-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./promtail-config.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+
+  grafana:
+    image: grafana/grafana:latest
+    networks:
+      - lab-net
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+
+  solr:
+    image: vulhub/solr:8.11.0
+    container_name: log4shell-lab-solr-1
+    networks:
+      lab-net:
+        ipv4_address: 10.10.10.20
+    ports:
+      - "8983:8983"
+
+networks:
+  lab-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.10.0/24
