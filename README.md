@@ -11,14 +11,16 @@
 * **Prerequisites**: Docker, Docker Compose, and a terminal environment (Kali Linux).
 * **Setup Instructions**:
     1.  Deploy the SOC stack and victim environment using: `docker compose up -d`.
+          * **Note**: After completion of the lab, use `docker compose down -v` & `docker network prune -f` to clean up.
     
-![Infrastructure Configuration](./screenshots/1_infrastructure_config.png)
-
+    ![Infrastructure Configuration](./screenshots/1_infrastructure_config.png)
+    
     2.  Confirm all five services are running and verify the assigned static IPs: `docker network inspect log4shell-lab_lab-net`.
     
-![Network Verification](./screenshots/2_network_verification.png)
-
-    3. Verify the dashboard of Solr by visiting `http://localhost:8983`
+    ![Network Verification](./screenshots/2_network_verification.png)
+    
+    3.  Verify the dashboard of Solr by visiting `http://localhost:8983`
+   
 
 ## 3. Exploitation Walkthrough
 
