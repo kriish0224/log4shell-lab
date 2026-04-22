@@ -94,8 +94,7 @@ cat /root/flag.txt
  * **Suggested Mitigations**: To secure an environment against Log4Shell, the following strategies are recommended:
    1. **Software Patching (Primary Defense)**: The most effective mitigation is to update the Log4j library to a secure version.
       * **Update to Log4j 2.17.1 (or higher)**: Versions 2.15.0 and 2.16.0 had incomplete fixes. Version 2.17.1 completely disables JNDI lookups by default and removes support for message lookup patterns.
-
-  2. **Configuration Hardening (Short-term Fix)**:
+   2. **Configuration Hardening (Short-term Fix)**:
 If immediate patching is not possible, the following configuration changes can be applied:
       * **Disable JNDI Lookups**: For Log4j versions 2.10 to 2.14.1, set the system property `log4j2.formatMsgNoLookups` to `true`. This can be done by adding `-Dlog4j2.formatMsgNoLookups=true` to the JVM startup arguments.
       * **Environment Variable**: Set the environment variable `LOG4J_FORMAT_MSG_NO_LOOKUPS=true` on the host system.
@@ -104,6 +103,5 @@ If immediate patching is not possible, the following configuration changes can b
       * **Egress Filtering**: Restrict outgoing traffic from application servers. In this lab, the attack relied on the victim connecting outbound to the LDAP server on port `1389`. A strict firewall policy that blocks unauthorized outbound connections would have prevented the reverse shell from ever reaching the attacker.
 
       * **WAF (Web Application Firewall)**: Implement WAF rules to inspect incoming headers (like `User-Agent`) and parameters for the `${jndi:ldap://...}` pattern.
-
-  4. **Runtime Protection**
+   4. **Runtime Protection**
       * **Remove the JndiLookup class**: In legacy environments where patching is impossible, a manual "surgical" fix involves removing the `JndiLookup.class` file from the `log4j-core` JAR file to physically eliminate the vulnerable code path.
