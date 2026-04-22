@@ -91,7 +91,7 @@ cat /root/flag.txt
 
 ![SOC Detection](./screenshots/8_soc_detection.png)
 
-* **Suggested Mitigations**: To secure an environment against Log4Shell, the following strategies are recommended:
+ * **Suggested Mitigations**: To secure an environment against Log4Shell, the following strategies are recommended:
    1. **Software Patching (Primary Defense)**: The most effective mitigation is to update the Log4j library to a secure version.
       * **Update to Log4j 2.17.1 (or higher)**: Versions 2.15.0 and 2.16.0 had incomplete fixes. Version 2.17.1 completely disables JNDI lookups by default and removes support for message lookup patterns.
 
